@@ -69,3 +69,14 @@ body {
 .openbtn:hover {
     background-color: #444;
   }
+
+  .menu {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  
+    padding: right 25%;
+    border: 1px solid #000;
+  }
