@@ -5,6 +5,7 @@ import Main from './pages/Main';
 import Report from './pages/Report';
 import Register from './pages/Register';
 import Move from './pages/Move';
+import ListAll from './pages/Report/ListAll'
 
 const Router = () => (
     <BrowserRouter>
@@ -13,6 +14,7 @@ const Router = () => (
             <Route path="/reports" element={<Report/>}/>
             <Route path="/register" element={<Register/>}/>
             <Route path="/move" element={<Move/>}/>
+            <Route path="/reports/listall" element={<ListAll/>}/>
         </Routes>
     </BrowserRouter>
 );
