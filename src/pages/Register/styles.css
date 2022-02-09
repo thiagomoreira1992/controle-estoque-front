@@ -88,6 +88,7 @@ body {
 
 .registro {
   padding-top: 24px;
+  margin-top: 50px;
 }
 
 .registro .content {
@@ -132,12 +133,15 @@ form label .button {
   border-radius: 5px;
   border: 0;
   background-color: #0f0f0f;
-
   transition: filter 0.3s;
 }
 
 form label .button:hover{
  filter: brightness(150%);
+}
+
+.formButton{
+  margin-top:10px !important;
 }
 
 .react-select {

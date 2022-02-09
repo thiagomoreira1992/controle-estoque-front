@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { Helmet } from 'react-helmet';
-import { FiFileText } from 'react-icons/fi';
+import { FiTrash2 } from 'react-icons/fi';
 //import api from '../../services/api';
 
 import './style.css';
@@ -32,10 +32,28 @@ export default function ListAll() {
     function handleGetCategoria(int) {
         for (i in categoria) {
             if (categoria[i].id === int) {
-                console.log("valor i" + i);
-                console.log(categoria[i].nome);
                 return categoria[i].nome;
             }
+        }
+    }
+
+    function handleGetMaterial(int) {
+        for (i in materiais) {
+            if (materiais[i].id === int) {
+                return materiais[i].nome;
+            }
+        }
+    }
+
+    async function handleDeletMaterial(id){
+        try{
+            await api.post('removermaterial',{
+                id:`${id}`
+            });
+            alert(`O item ${handleGetMaterial(id)} foi deletado do banco de dados!`)
+            setMateriais(materiais.filter(material => material.id !== id));
+        }catch(err){
+            alert(err);
         }
     }
 
@@ -57,7 +75,7 @@ export default function ListAll() {
                     <button className="openbtn" id="menuSide" onClick={openNav}><p>☰</p></button>
                     <span>Controle de Materiais e Medicamentos</span>
                 </section>
-                <div id="content">
+                <div id="contentListAll">
                     <ul>
                         <li>
                             <span>Categoria</span>
@@ -77,11 +95,14 @@ export default function ListAll() {
                                     <span>{ handleGetCategoria(material.idCategoria)}</span>
                                     <span>{material.nome}</span>
                                     <span>{material.quantidade}</span>
-                                    <span>{material.validade}</span>
+                                    <span>{new Intl.DateTimeFormat().format(new Date(material.validade))}</span>
                                     <span>{material.apresentacao}</span>
                                     <span>{material.lote}</span>
                                     <span>{material.vigilancia === true ? "Sim" : "Não"}</span>
                                     <span>{material.profissional}</span>
+                                    <button onClick={()=> handleDeletMaterial(material.id)}>
+                                        <FiTrash2 size={20} color="323232"/>
+                                    </button>
                                 </li>
                             ))
                         }

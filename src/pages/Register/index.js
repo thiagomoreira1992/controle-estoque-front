@@ -183,7 +183,7 @@ export default function Main() {
                                 onChange={e => setProfissional(e.value)}
                             />
                         </label>
-                        <label>
+                        <label className="formButton">
                             <button className="button" type="submit">Cadastrar</button>
                         </label>
                     </form>
