@@ -45,14 +45,20 @@ export default function ListAll() {
         }
     }
 
-    async function handleDeletMaterial(id){
-        try{
-            await api.post('removermaterial',{
-                id:`${id}`
-            });
-            alert(`O item ${handleGetMaterial(id)} foi deletado do banco de dados!`)
-            setMateriais(materiais.filter(material => material.id !== id));
-        }catch(err){
+    async function handleDeletMaterial(id) {
+        try {
+            if (window.confirm(`Deletar ${handleGetMaterial(id)}`) == true) {
+                await api.post('removermaterial', {
+                    id: `${id}`
+                });
+
+                alert(`Material ${handleGetMaterial(id)} deletado!`);
+                setMateriais(materiais.filter(material => material.id !== id));
+            }else{
+                alert('Exclusão cancelada');
+            }       
+            
+        } catch (err) {
             alert(err);
         }
     }
@@ -92,7 +98,7 @@ export default function ListAll() {
                         {
                             materiais.map(material => (
                                 <li key={material.id}>
-                                    <span>{ handleGetCategoria(material.idCategoria)}</span>
+                                    <span>{handleGetCategoria(material.idCategoria)}</span>
                                     <span>{material.nome}</span>
                                     <span>{material.quantidade}</span>
                                     <span>{new Intl.DateTimeFormat().format(new Date(material.validade))}</span>
@@ -100,8 +106,8 @@ export default function ListAll() {
                                     <span>{material.lote}</span>
                                     <span>{material.vigilancia === true ? "Sim" : "Não"}</span>
                                     <span>{material.profissional}</span>
-                                    <button onClick={()=> handleDeletMaterial(material.id)}>
-                                        <FiTrash2 size={20} color="323232"/>
+                                    <button onClick={() => handleDeletMaterial(material.id)}>
+                                        <FiTrash2 size={20} color="323232" />
                                     </button>
                                 </li>
                             ))

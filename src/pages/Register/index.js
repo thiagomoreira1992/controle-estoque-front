@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import api from '../../services/api';
@@ -21,7 +21,7 @@ const optionProfissional = [
     { value: 0, label: "Profissional" },
     { value: 2, label: "Eduarda" }
 ]
-export default function Main() {
+export default function Register() {
     const [idCategoria, setIdCategoria] = useState("");
     const [nome, setNome] = useState('');
     const [quantidade, setQuantidade] = useState('');
@@ -30,6 +30,24 @@ export default function Main() {
     const [lote, setLote] = useState('');
     const [profissional, setProfissional] = useState(null);
     const [vigilancia, setVigilancia] = useState(null);
+    const [optionsProfissional, setOptionsProfissional] = useState(null);
+
+
+    useEffect(() => {
+        console.log("executa codigo")
+        api.get('listarProfissional').then(response => {
+            console.log(response.data);
+            /*response.data.map(resposta => (
+                setOptionsProfissional([{
+                    value: resposta.id, label: resposta.nome
+                }])
+            ))*/
+            setOptionsProfissional(response.data.map(resposta=> (
+                {value: resposta.id, label: resposta.nome}
+            )))
+        });
+        console.log(optionsProfissional);
+    }, [])
 
     const navigate = useNavigate();
 
@@ -178,7 +196,7 @@ export default function Main() {
                                 id="profissional"
                                 className="react-select"
                                 placeholder="Profissional"
-                                options={optionProfissional}
+                                options={optionsProfissional}
                                 defaultValue={profissional}
                                 onChange={e => setProfissional(e.value)}
                             />
