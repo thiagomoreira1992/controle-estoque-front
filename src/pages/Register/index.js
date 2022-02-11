@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import api from '../../services/api';
 import Select from 'react-select';
+import moment from 'moment';
 
 import './styles.css';
 import { openNav, closeNav } from './scripts'
@@ -89,14 +90,18 @@ export default function Register() {
         } else if (vigilancia === null || vigilancia === "" || vigilancia === undefined) {
             alert('Todos os Campos precisam ser preenchidos!')
             document.getElementById('vigilancia').focus();
-        } else {
+        } else if(validade <= moment().add(1, 'month').format ('YYYY-MM-DD')){
+            alert('Data de validade inferior ou muito próxima da data atual!');
+        }else {
             try {
                 const response = await api.post('criarMaterial', data);
+                console.log(data);
+                console.log(response);
 
-                alert(`Material criado, id ${response.data.id}`);
+                alert(response.data.body);
 
                 navigate('/register');
-                window.location.reload();
+               // window.location.reload();
             } catch (err) {
                 alert(err);
             }
