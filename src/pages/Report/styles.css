@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body {
+    transition: background-color .5s;
+    width: 960px;
+    margin: 0 auto;
+}
+
+#main {
+    transition: 0.5s;
+    margin: 0;
+}
+
+#sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0%;
+    left: 0%;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+#sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font: 500 25px Roboto, sans-serif;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+#sidebar a:hover {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    color: #fff4f4;
+    display: block;
+    transition: 0.3s;
+}
+
+
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 9px 10px;
+    border: solid 1px #FFF;
+    border-spacing: 2px;
+    transition: 0.3s;
+}
+
+.openbtn p {
+    margin: 0;
+    padding: 0.1px 5px 2px 5px;
+    border-radius: 3px;
+    ;
+
+    border: solid 1px #FFF;
+}
+
+#sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.openbtn:hover {
+    background-color: #444;
+}
+
+.menu {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: right 25%;
+    border: 1px solid #000;
+}
+
+#content {
+    padding-top: 20px;
+}
+
+#content ul {
+    width: 75%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr !important;
+    grid-gap: 25px;
+    justify-items: center;
+    list-style: none;
+    
+}
+
+#content ul li {
+    width: 80%;
+    display: grid;
+    flex-direction: row;
+    justify-items: center;
+}
+
+#content ul li a{
+    width: 100% !important;
+    height: 150px !important;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-decoration: none;
+    
+
+    background: #cdcdcd;
+    transition: filter 0.3s;
+
+    font: 500 20px Roboto, sans-serif;
+    color: #323232;
+    -webkit-font-smoothing: antialiased;   
+}
+
+#content ul li a:hover{
+    filter: brightness(110%);
+}
