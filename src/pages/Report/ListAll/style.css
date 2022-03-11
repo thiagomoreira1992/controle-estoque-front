@@ -135,9 +135,12 @@ body {
     font: 500 12px Roboto, sans-serif;
     /*border: 1px solid #000;*/
     text-align: center;
+<<<<<<< HEAD
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+=======
+>>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
 }
 
 #contentListAll .result li button{
@@ -146,6 +149,10 @@ body {
     align-content: center;
     margin-bottom: 5px;
     margin-top: 0px;
+<<<<<<< HEAD
     /*padding: 0px !important;*/
     padding-right: 5px;
+=======
+    padding: 0px !important;
+>>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
 }
