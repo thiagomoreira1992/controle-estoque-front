@@ -1,0 +1,258 @@
+import React, { Component, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import api from '../../services/api';
+
+import './styles.css';
+import { openNav, closeNav } from './scripts'
+
+const optionsBoolean = [
+    { value: 1, label: "Sim" },
+    { value: 0, label: "Não" }
+]
+
+export default function Modifier() {
+    const navigate = useNavigate();
+
+    const idMaterial = localStorage.getItem('idMaterial');
+
+    const [idCategoria, setIdCategoria] = useState("");
+    const [nome, setNome] = useState('');
+    const [validade, setValidade] = useState('');
+    const [apresentacao, setApresentacao] = useState('');
+    const [lote, setLote] = useState('');
+    const [profissional, setProfissional] = useState(null);
+    const [vigilancia, setVigilancia] = useState(null);
+    const [optionsProfissional, setOptionsProfissional] = useState([]);
+    const [optionsCategoria, setOptionsCategoria] = useState([]);
+    const [material, setMaterial] = useState([]);
+
+
+    useEffect(() => {
+        api.get('listarProfissional').then(response => {
+            setOptionsProfissional(response.data.map(resposta => (
+                { value: resposta.id, label: resposta.nome }
+            )))
+        }).then(() => api.get('listarCategoria')).then(response2 => {
+            setOptionsCategoria(response2.data.map(resposta2 => (
+                { value: resposta2.id, label: resposta2.nome }
+            )))
+        }).then(() => api.post('listarId', { id: `${idMaterial}` })).then(response3 => {
+            setMaterial(response3.data);
+            setNome(response3.data.nome);
+            setValidade(response3.data.validade);
+            setApresentacao(response3.data.apresentacao);
+            setLote(response3.data.lote);
+        });
+    }, [])
+
+
+    function handleSetCategoria(int) {
+        setIdCategoria(int);
+        document.getElementById('nuloCategoria').disabled = true;
+    }
+
+    function handleSetProfissional(int) {
+        setProfissional(int);
+        document.getElementById('nuloProfissional').disabled = true;
+    }
+
+    function handleSetVigilancia(int) {
+        setVigilancia(int);
+        document.getElementById('nuloVigilancia').disabled = true;
+    }
+
+    function handleGetCategoria(int) {
+        let i;
+        for (i in optionsCategoria) {
+            if (optionsCategoria[i].value === int) {
+                return optionsCategoria[i].label;
+            }
+        }
+    }
+
+    function handleGetProfissional(int) {
+        let i;
+        for (i in optionsProfissional) {
+            if (optionsProfissional[i].value === int) {
+                return optionsProfissional[i].label;
+            }
+        }
+    }
+
+    async function handleRegister(e) {
+        e.preventDefault();
+
+        const data = {
+            idCategoria,
+            nome,
+            quantidade,
+            validade,
+            apresentacao,
+            lote,
+            profissional,
+            vigilancia
+        }
+
+        if (idCategoria === null || idCategoria === "" || idCategoria === undefined) {
+            alert('Todos os Campos precisam ser preenchidos!');
+            document.getElementById('categoria').focus();
+        } else if (nome === null || nome === "" || nome === undefined) {
+            alert('Todos os Campos precisam ser preenchidos!');
+            document.getElementById('nome').focus();
+        } else if (quantidade === null || quantidade === "" || quantidade === undefined) {
+            alert('Todos os Campos precisam ser preenchidos!')
+            document.getElementById('quantidade').focus();
+        } else if (validade === null || validade === "" || validade === undefined) {
+            alert('Todos os Campos precisam ser preenchidos!')
+            document.getElementById('validade').focus();
+        } else if (apresentacao === null || apresentacao === "" || apresentacao === undefined) {
+            alert('Todos os Campos precisam ser preenchidos!')
+            document.getElementById('apresentacao').focus();
+        } else if (lote === null || lote === "" || lote === undefined) {
+            alert('Todos os Campos precisam ser preenchidos!')
+            document.getElementById('lote').focus();
+        } else if (profissional === null || profissional === "" || profissional === undefined) {
+            alert('Todos os Campos precisam ser preenchidos!')
+            document.getElementById('profissional').focus();
+        } else if (vigilancia === null || vigilancia === "" || vigilancia === undefined) {
+            alert('Todos os Campos precisam ser preenchidos!')
+            document.getElementById('vigilancia').focus();
+        } else if (validade <= moment().add(1, 'month').format('YYYY-MM-DD')) {
+            alert('Data de validade inferior ou muito próxima da data atual!');
+        } else {
+            try {
+                const response = await api.post('alterarMaterial', data);
+                console.log(data);
+                console.log(response);
+
+                alert(response.data.body);
+
+                navigate('/reports/listall');
+            } catch (err) {
+                alert(err);
+            }
+        }
+    }
+
+    return (
+        <div id='main-container'>
+            <Helmet>
+                <meta name='viewport' content='width=device-width, initial-scale=1' />
+            </Helmet>
+            <div id='sidebar'>
+                <Link to="" className="closebtn" onClick={closeNav}>X</Link>
+                <Link to="/move" onClick={closeNav}>Movimentar</Link>
+                <Link to="/register" onClick={closeNav}>Cadastrar</Link>
+                <Link to="/" onClick={closeNav}>Verificar Validade</Link>
+                <Link to="/reports" onClick={closeNav}>Relatórios</Link>
+            </div>
+            <div id='main'>
+                <section className="menu">
+                    <button className="openbtn" id="menuSide" onClick={openNav}><p>☰</p></button>
+                    <span>Controle de Materiais e Medicamentos</span>
+                </section>
+                <div className="registro">
+                    <div id="contentCheckValidity">
+                        <span>
+                            <strong>Materiais próximos da data de Validade</strong>
+                        </span>
+                        <ul>
+                            <li>
+                                <span>Categoria</span>
+                                <span>Nome</span>
+                                <span>Quantidade</span>
+                                <span>Validade</span>
+                                <span>Apresentação</span>
+                                <span>Lote</span>
+                                <span>Vigilância</span>
+                                <span>Profissional</span>
+                            </li>
+                        </ul>
+                        <ul className="resultCheckValidity">
+                            <li>
+                                <span>{handleGetCategoria(material.idCategoria)}</span>
+                                <span>{material.nome}</span>
+                                <span>{material.quantidade}</span>
+                                <span>{material.validade}</span>
+                                <span>{material.apresentacao}</span>
+                                <span>{material.lote}</span>
+                                <span>{material.vigilancia === true ? "Sim" : "Não"}</span>
+                                <span>{handleGetProfissional(material.profissional)}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <form className="content" onSubmit={handleRegister}>
+                        <label>
+                            Categoria:
+                            <select value={idCategoria} onChange={e => handleSetCategoria(e.target.value)
+                                /*setIdCategoria(e.target.value).then(() => setNomeCategoria(handleGetCategoria(e.target.value))) || console.log(handleGetCategoria(e.target.value));
+                            */}>
+                                <option id="nuloCategoria">{idCategoria.indexOf() < 0 ? handleGetCategoria(material.idCategoria) : handleGetCategoria(idCategoria)}</option>
+                                {optionsCategoria.map(categoria => (
+                                    <option key={categoria.value} value={categoria.value}>{categoria.label}</option>
+                                ))}
+                            </select>
+                        </label>
+                        <label>Nome:
+                            <input
+                                id="nome"
+                                placeholder="Nome"
+                                value={nome}
+                                onChange={e => setNome(e.target.value)}
+                            />
+                        </label>
+                        <label>Validade:
+                            <input
+                                id="validade"
+                                type="date" placeholder="Data"
+                                value={validade}
+                                onChange={e => setValidade(e.target.value)}
+                            />
+                        </label>
+                        <label>
+                            Apresentação:
+                            <input
+                                id="apresentacao"
+                                type="text"
+                                placeholder="Apresentação"
+                                value={apresentacao}
+                                onChange={e => setApresentacao(e.target.value)}
+                            />
+                        </label>
+                        <label>Lote:
+                            <input
+                                id="lote"
+                                type="text"
+                                placeholder="Lote"
+                                value={lote}
+                                onChange={e => setLote(e.target.value)}
+                            />
+                        </label>
+                        <label>
+                            Vigilância:
+                            <select value={vigilancia} onChange={e => handleSetVigilancia(e.target.value)}>
+                                <option id='nuloVigilancia'>{material.vigilancia === true ? "Sim" : "Não"}</option>
+                                {optionsBoolean.map(escolha => (
+                                    <option key={escolha.value} value={escolha.value}>{escolha.label}</option>
+                                ))}
+                            </select>
+                        </label>
+                        <label>Profissional:
+                            <select value={profissional} onChange={e => handleSetProfissional(e.target.value)}>
+                                <option id='nuloProfissional'>{handleGetProfissional(material.profissional)}</option>
+                                {optionsProfissional.map(funcionario => (
+                                    <option key={funcionario.value} value={funcionario.value}>{funcionario.label}</option>
+                                ))}
+                            </select>
+                        </label>
+                        <label className="formButton">
+                            <button className="button" type="submit">Cadastrar</button>
+                        </label>
+                    </form>
+                </div>
+            </div>
+        </div>
+    );
+
+}
