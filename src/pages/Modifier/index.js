@@ -21,8 +21,8 @@ export default function Modifier() {
     const [validade, setValidade] = useState('');
     const [apresentacao, setApresentacao] = useState('');
     const [lote, setLote] = useState('');
-    const [profissional, setProfissional] = useState(null);
-    const [vigilancia, setVigilancia] = useState(null);
+    const [profissional, setProfissional] = useState('');
+    const [vigilancia, setVigilancia] = useState('');
     const [optionsProfissional, setOptionsProfissional] = useState([]);
     const [optionsCategoria, setOptionsCategoria] = useState([]);
     const [material, setMaterial] = useState([]);
@@ -39,10 +39,13 @@ export default function Modifier() {
             )))
         }).then(() => api.post('listarId', { id: `${idMaterial}` })).then(response3 => {
             setMaterial(response3.data);
+            setIdCategoria(response3.data.idCategoria);
             setNome(response3.data.nome);
             setValidade(response3.data.validade);
             setApresentacao(response3.data.apresentacao);
             setLote(response3.data.lote);
+            setProfissional(response3.data.profissional);
+            setVigilancia(response3.data.vigilancia);
         });
     }, [])
 
@@ -82,45 +85,58 @@ export default function Modifier() {
 
     async function handleRegister(e) {
         e.preventDefault();
+        const id = idMaterial;
+
+        if (idCategoria === null || idCategoria === "" || idCategoria === undefined) {
+            setIdCategoria(material.idCategoria);
+            console.log(idCategoria + " " + material.idCategoria);
+        }
+        if (nome === null || nome === "" || nome === undefined) {
+            setNome(material.nome);
+            console.log(nome + " " + material.nome);
+        }
+        if (validade === null || validade === "" || validade === undefined) {
+            setValidade(material.validade);
+            console.log(validade + " " + material.validade);
+        }
+        if (apresentacao === null || apresentacao === "" || apresentacao === undefined) {
+            setApresentacao(material.apresentacao);
+            console.log(apresentacao + " " + material.apresentacao);
+        }
+        if (lote === null || lote === "" || lote === undefined) {
+            setLote(material.lote);
+            console.log(lote + " " + material.lote);
+        }
+        if (profissional === null || profissional === "" || profissional === undefined) {
+            setProfissional(material.profissional);
+            console.log(profissional + " " + console.log(material.profissional));
+
+        }if (vigilancia === null || vigilancia === "" || vigilancia === undefined) {
+            setVigilancia(material.vigilancia);
+            console.log(vigilancia + " " + material.vigilancia);
+        }
 
         const data = {
             idCategoria,
             nome,
-            quantidade,
             validade,
             apresentacao,
             lote,
             profissional,
-            vigilancia
+            vigilancia,
+            id
         }
 
-        if (idCategoria === null || idCategoria === "" || idCategoria === undefined) {
-            alert('Todos os Campos precisam ser preenchidos!');
-            document.getElementById('categoria').focus();
-        } else if (nome === null || nome === "" || nome === undefined) {
-            alert('Todos os Campos precisam ser preenchidos!');
-            document.getElementById('nome').focus();
-        } else if (quantidade === null || quantidade === "" || quantidade === undefined) {
-            alert('Todos os Campos precisam ser preenchidos!')
-            document.getElementById('quantidade').focus();
-        } else if (validade === null || validade === "" || validade === undefined) {
-            alert('Todos os Campos precisam ser preenchidos!')
-            document.getElementById('validade').focus();
-        } else if (apresentacao === null || apresentacao === "" || apresentacao === undefined) {
-            alert('Todos os Campos precisam ser preenchidos!')
-            document.getElementById('apresentacao').focus();
-        } else if (lote === null || lote === "" || lote === undefined) {
-            alert('Todos os Campos precisam ser preenchidos!')
-            document.getElementById('lote').focus();
-        } else if (profissional === null || profissional === "" || profissional === undefined) {
-            alert('Todos os Campos precisam ser preenchidos!')
-            document.getElementById('profissional').focus();
-        } else if (vigilancia === null || vigilancia === "" || vigilancia === undefined) {
-            alert('Todos os Campos precisam ser preenchidos!')
-            document.getElementById('vigilancia').focus();
-        } else if (validade <= moment().add(1, 'month').format('YYYY-MM-DD')) {
-            alert('Data de validade inferior ou muito próxima da data atual!');
-        } else {
+        if(data.idCategoria === "" || 
+        data.nome === "" ||
+        data.validade === "" || 
+        data.apresentacao === "" || 
+        data.lote === "" || 
+        data.profissional === "" ||
+        data.vigilancia === "" || 
+        data.id === ""){
+            alert(JSON.stringify(data))
+        }else{
             try {
                 const response = await api.post('alterarMaterial', data);
                 console.log(data);
@@ -188,7 +204,7 @@ export default function Modifier() {
                             <select value={idCategoria} onChange={e => handleSetCategoria(e.target.value)
                                 /*setIdCategoria(e.target.value).then(() => setNomeCategoria(handleGetCategoria(e.target.value))) || console.log(handleGetCategoria(e.target.value));
                             */}>
-                                <option id="nuloCategoria">{idCategoria.indexOf() < 0 ? handleGetCategoria(material.idCategoria) : handleGetCategoria(idCategoria)}</option>
+                                <option id="nuloCategoria">{handleGetCategoria(material.idCategoria)}</option>
                                 {optionsCategoria.map(categoria => (
                                     <option key={categoria.value} value={categoria.value}>{categoria.label}</option>
                                 ))}

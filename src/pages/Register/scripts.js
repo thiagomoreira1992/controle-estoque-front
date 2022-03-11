@@ -1,10 +1,7 @@
 export let nav = 0;
 
-<<<<<<< HEAD
 document.getElementsByTagName('select').selectedIndex = -1;
 
-=======
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
 export function openNav() {
     console.log(nav);
     nav = 1; 

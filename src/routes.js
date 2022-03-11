@@ -6,13 +6,10 @@ import Report from './pages/Report';
 import Register from './pages/Register';
 import Move from './pages/Move';
 import ListAll from './pages/Report/ListAll'
-<<<<<<< HEAD
 import ListMaterial from './pages/Report/ListMaterial'
 import ListMedicamentos from './pages/Report/ListMedicamentos'
 import ListPapelaria from './pages/Report/ListPapelaria'
 import Modifier from './pages/Modifier';
-=======
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
 
 const Router = () => (
     <BrowserRouter>
@@ -22,13 +19,10 @@ const Router = () => (
             <Route path="/register" element={<Register/>}/>
             <Route path="/move" element={<Move/>}/>
             <Route path="/reports/listall" element={<ListAll/>}/>
-<<<<<<< HEAD
             <Route path="/reports/listmateriais" element={<ListMaterial/>}/>
             <Route path="/reports/listmedicamentos" element={<ListMedicamentos/>}/>
             <Route path="/reports/listpapelaria" element={<ListPapelaria/>}/>
             <Route path="/modifier" element={<Modifier/>}/>
-=======
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
         </Routes>
     </BrowserRouter>
 );

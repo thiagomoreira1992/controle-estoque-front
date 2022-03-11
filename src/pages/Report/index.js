@@ -36,31 +36,19 @@ export default class Main extends Component {
                                 </Link>
                             </li>
                             <li>
-<<<<<<< HEAD
                             <Link to="/reports/listmateriais">
-=======
-                            <Link to="/reports/listall">
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
                                     <FiFileText size="72" color="#323232" />
                                     <span>Listar Materiais</span>
                                 </Link>
                             </li>
                             <li>
-<<<<<<< HEAD
                             <Link to="/reports/listmedicamentos">
-=======
-                            <Link to="/reports/listall">
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
                                     <FiFileText size="72" color="#323232" />
                                     <span>Listar Medicamentos</span>
                                 </Link>
                             </li>
                             <li>
-<<<<<<< HEAD
                             <Link to="/reports/listpapelaria">
-=======
-                            <Link to="/reports/listall">
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
                                     <FiFileText size="72" color="#323232" />
                                     <span>Listar Papelaria</span>
                                 </Link>

@@ -31,12 +31,8 @@ export default function Register() {
     const [lote, setLote] = useState('');
     const [profissional, setProfissional] = useState(null);
     const [vigilancia, setVigilancia] = useState(null);
-<<<<<<< HEAD
     const [optionsProfissional, setOptionsProfissional] = useState([]);
     const [optionsCategoria, setOptionsCategoria] = useState([]);
-=======
-    const [optionsProfissional, setOptionsProfissional] = useState(null);
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
 
 
     useEffect(() => {
@@ -48,18 +44,12 @@ export default function Register() {
                     value: resposta.id, label: resposta.nome
                 }])
             ))*/
-<<<<<<< HEAD
             setOptionsProfissional(response.data.map(resposta => (
                 { value: resposta.id, label: resposta.nome }
             )))
         }).then(() => api.get('listarCategoria')).then(response2 => {
             setOptionsCategoria(response2.data.map(resposta2 => (
                 { value: resposta2.id, label: resposta2.nome })))
-=======
-            setOptionsProfissional(response.data.map(resposta=> (
-                {value: resposta.id, label: resposta.nome}
-            )))
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
         });
         console.log(optionsProfissional);
     }, [])
@@ -104,15 +94,9 @@ export default function Register() {
         } else if (vigilancia === null || vigilancia === "" || vigilancia === undefined) {
             alert('Todos os Campos precisam ser preenchidos!')
             document.getElementById('vigilancia').focus();
-<<<<<<< HEAD
         } else if (validade <= moment().add(1, 'month').format('YYYY-MM-DD')) {
             alert('Data de validade inferior ou muito próxima da data atual!');
         } else {
-=======
-        } else if(validade <= moment().add(1, 'month').format ('YYYY-MM-DD')){
-            alert('Data de validade inferior ou muito próxima da data atual!');
-        }else {
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
             try {
                 const response = await api.post('criarMaterial', data);
                 console.log(data);
@@ -121,11 +105,7 @@ export default function Register() {
                 alert(response.data.body);
 
                 navigate('/register');
-<<<<<<< HEAD
                 window.location.reload();
-=======
-               // window.location.reload();
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
             } catch (err) {
                 alert(err);
             }
@@ -154,7 +134,6 @@ export default function Register() {
                     <form className="content" onSubmit={handleRegister}>
                         <label>
                             Categoria:
-<<<<<<< HEAD
                             {/*<Select
                                 id="categoria"
                                 className="react-select"
@@ -170,17 +149,6 @@ export default function Register() {
                                     <option value={categoria.value}>{categoria.label}</option>
                                 ))}
                             </select>
-=======
-                            <Select
-                                id="categoria"
-                                className="react-select"
-                                placeholder="Categoria"
-                                options={options}
-                                name="Categoria"
-                                defaultValue={idCategoria}
-                                onChange={e => setIdCategoria(e.value)}
-                            />
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
                         </label>
                         <label>Nome:
                             <input
@@ -229,18 +197,13 @@ export default function Register() {
                         </label>
                         <label>
                             Vigilância:
-<<<<<<< HEAD
                             {/*<Select
-=======
-                            <Select
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
                                 id="vigilancia"
                                 className="react-select"
                                 placeholder="Vigilância"
                                 options={optionsBoolean}
                                 defaultvalue={vigilancia}
                                 onChange={e => setVigilancia(e.value)}
-<<<<<<< HEAD
                             />*/}
                             <select value={vigilancia} onChange={e => setVigilancia(e.target.value)}>
                                 <option></option>
@@ -251,19 +214,12 @@ export default function Register() {
                         </label>
                         <label>Profissional:
                             {/*<Select
-=======
-                            />
-                        </label>
-                        <label>Profissional:
-                            <Select
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
                                 id="profissional"
                                 className="react-select"
                                 placeholder="Profissional"
                                 options={optionsProfissional}
                                 defaultValue={profissional}
                                 onChange={e => setProfissional(e.value)}
-<<<<<<< HEAD
                             />*/}
                             <select value={profissional} onChange={e => setProfissional(e.target.value)}>
                                 <option></option>
@@ -271,9 +227,6 @@ export default function Register() {
                                     <option value={funcionario.value}>{funcionario.label}</option>
                                 ))}
                             </select>
-=======
-                            />
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
                         </label>
                         <label className="formButton">
                             <button className="button" type="submit">Cadastrar</button>

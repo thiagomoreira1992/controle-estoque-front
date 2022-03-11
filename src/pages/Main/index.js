@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { Helmet } from 'react-helmet';
-<<<<<<< HEAD
 import { ImArrowRight2 } from "react-icons/im";
 
 import './styleMain.css';
 import { openNav, closeNav} from './scripts'
-=======
-import { FiTrash2 } from 'react-icons/fi';
-//import api from '../../services/api';
-
-import './styleMain.css';
-import { openNav, closeNav, closeNavClick } from './scripts'
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
 
 import api from '../../services/api';
 
@@ -21,10 +13,7 @@ export default function CheckValidity() {
     let i;
     const [materiais, setMateriais] = useState([]);
     const [categoria, setCategoria] = useState([]);
-<<<<<<< HEAD
     const [profissional, setProfissional] = useState([]);
-=======
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
 
     useEffect(() => {
         /*api.get('listarMaterial').then(response => {
@@ -35,13 +24,9 @@ export default function CheckValidity() {
         }))*/
         api.get('listarCategoria').then(response2 => {
             setCategoria(response2.data);
-<<<<<<< HEAD
         }).then(api.get('listarProfissional').then(response3 => {
             setProfissional(response3.data);
         })).then(api.get('verificaValidade').then(response => {
-=======
-        }).then(api.get('verificaValidade').then(response => {
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
             setMateriais(response.data);
         }))
     }, []);
@@ -62,7 +47,6 @@ export default function CheckValidity() {
         }
     }
 
-<<<<<<< HEAD
     function handleGetProfissional(int) {
         for (i in profissional) {
             if (profissional[i].id === int) {
@@ -71,8 +55,6 @@ export default function CheckValidity() {
         }
     }
 
-=======
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
     async function handleDeletMaterial(id) {
         try {
             if (window.confirm(`Deletar ${handleGetMaterial(id)}`) == true) {
@@ -136,23 +118,15 @@ export default function CheckValidity() {
                                     <span>{material.apresentacao}</span>
                                     <span>{material.lote}</span>
                                     <span>{material.vigilancia === true ? "Sim" : "Não"}</span>
-<<<<<<< HEAD
                                     <span>{handleGetProfissional(material.profissional)}</span>
-=======
-                                    <span>{material.profissional}</span>
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
                                 </li>
                             ))
                         }
                     </ul>
-<<<<<<< HEAD
 
                 </div>
 
                 <ImArrowRight2 size={250} color="2f436c"/>
-=======
-                </div>
->>>>>>> d97c394ca8eacfc53c2925b49e2c0096319b66df
             </div>
         </div>
     );
