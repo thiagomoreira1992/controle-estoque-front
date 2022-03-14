@@ -112,7 +112,7 @@ body {
     justify-content: space-between !important; 
     /*align-content: space-between;*/
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr !important;
     grid-gap: auto;
     align-content: center;
     justify-items: center !important;

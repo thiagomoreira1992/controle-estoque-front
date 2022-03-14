@@ -9,6 +9,7 @@ import ListAll from './pages/Report/ListAll'
 import ListMaterial from './pages/Report/ListMaterial'
 import ListMedicamentos from './pages/Report/ListMedicamentos'
 import ListPapelaria from './pages/Report/ListPapelaria'
+import ListMovimentacao from './pages/Report/ListMonitoring'
 import Modifier from './pages/Modifier';
 
 const Router = () => (
@@ -22,6 +23,7 @@ const Router = () => (
             <Route path="/reports/listmateriais" element={<ListMaterial/>}/>
             <Route path="/reports/listmedicamentos" element={<ListMedicamentos/>}/>
             <Route path="/reports/listpapelaria" element={<ListPapelaria/>}/>
+            <Route path="/reports/listmovimentacoes" element={<ListMovimentacao/>}/>
             <Route path="/modifier" element={<Modifier/>}/>
         </Routes>
     </BrowserRouter>

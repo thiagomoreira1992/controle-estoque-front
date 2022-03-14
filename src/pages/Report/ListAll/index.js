@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from 'react-helmet';
 import { FiTrash2 } from 'react-icons/fi';
-//import api from '../../services/api';
 import { FiEdit } from 'react-icons/fi';
 
-import './style.css';
-import { openNav, closeNav, closeNavClick } from './scripts'
+import './styleAll.css';
+import { openNav, closeNav } from './scripts'
 
 import api from '../../../services/api';
 
@@ -20,12 +19,6 @@ export default function ListAll() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        /*api.get('listarMaterial').then(response => {
-            setMateriais(response.data);
-        }).then(api.get('listarCategoria')
-        .then(response2 => {
-            setCategoria(response2.data);
-        }))*/
         api.get('listarCategoria').then(response2 => {
             setCategoria(response2.data);
         }).then(api.get('listarProfissional').then(response3 => {

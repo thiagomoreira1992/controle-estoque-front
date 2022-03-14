@@ -142,9 +142,10 @@ export default function Modifier() {
                 console.log(data);
                 console.log(response);
 
-                alert(response.data.body);
+                alert(`Material ${data.nome} lote: ${data.lote}, alterado!`);
 
                 navigate('/reports/listall');
+                localStorage.clear();
             } catch (err) {
                 alert(err);
             }
@@ -201,7 +202,7 @@ export default function Modifier() {
                     <form className="content" onSubmit={handleRegister}>
                         <label>
                             Categoria:
-                            <select value={idCategoria} onChange={e => handleSetCategoria(e.target.value)
+                            <select value={idCategoria} placeholder="Categoria"  onChange={e => handleSetCategoria(e.target.value)
                                 /*setIdCategoria(e.target.value).then(() => setNomeCategoria(handleGetCategoria(e.target.value))) || console.log(handleGetCategoria(e.target.value));
                             */}>
                                 <option id="nuloCategoria">{handleGetCategoria(material.idCategoria)}</option>
@@ -247,7 +248,7 @@ export default function Modifier() {
                         </label>
                         <label>
                             Vigilância:
-                            <select value={vigilancia} onChange={e => handleSetVigilancia(e.target.value)}>
+                            <select value={vigilancia} placeholder="Vigilancia" onChange={e => handleSetVigilancia(e.target.value)}>
                                 <option id='nuloVigilancia'>{material.vigilancia === true ? "Sim" : "Não"}</option>
                                 {optionsBoolean.map(escolha => (
                                     <option key={escolha.value} value={escolha.value}>{escolha.label}</option>
@@ -255,7 +256,7 @@ export default function Modifier() {
                             </select>
                         </label>
                         <label>Profissional:
-                            <select value={profissional} onChange={e => handleSetProfissional(e.target.value)}>
+                            <select value={profissional} placeholder="Profissional" onChange={e => handleSetProfissional(e.target.value)}>
                                 <option id='nuloProfissional'>{handleGetProfissional(material.profissional)}</option>
                                 {optionsProfissional.map(funcionario => (
                                     <option key={funcionario.value} value={funcionario.value}>{funcionario.label}</option>

@@ -85,13 +85,13 @@ body {
     border: 1px solid #000;
 }
 
-#contentListAll{
+#contentListMonitoring{
     width: 100%;
 
     margin-top: 50px;
 }
 
-#contentListAll ul {
+#contentListMonitoring ul {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
@@ -103,7 +103,7 @@ body {
     
 }
 
-#contentListAll ul li {
+#contentListMonitoring ul li {
     width: 100%;
     border-bottom: 1px solid #000;
     /*display:flex;
@@ -112,13 +112,13 @@ body {
     justify-content: space-between !important; 
     /*align-content: space-between;*/
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr !important;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr !important;
     grid-gap: auto;
     align-content: center;
     justify-items: center !important;
 }
 
-#contentListAll ul li span{
+#contentListMonitoring ul li span{
     /*display: flex;
     flex-direction: row;
     justify-content: space-between;*/
@@ -130,14 +130,14 @@ body {
     text-align: center;
 }
 
-#contentListAll .result li span{
+#contentListMonitoring .result li span{
     padding:5px;
     font: 500 12px Roboto, sans-serif;
     /*border: 1px solid #000;*/
     text-align: center;
 }
 
-#contentListAll .result li button{
+#contentListMonitoring .result li button{
     display: flex;
     justify-content: center;
     align-content: center;

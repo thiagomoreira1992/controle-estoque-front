@@ -36,7 +36,6 @@ export default function Register() {
 
 
     useEffect(() => {
-        console.log("executa codigo")
         api.get('listarProfissional').then(response => {
             console.log(response.data);
             /*response.data.map(resposta => (
@@ -51,7 +50,6 @@ export default function Register() {
             setOptionsCategoria(response2.data.map(resposta2 => (
                 { value: resposta2.id, label: resposta2.nome })))
         });
-        console.log(optionsProfissional);
     }, [])
 
     const navigate = useNavigate();
@@ -143,8 +141,8 @@ export default function Register() {
                                 defaultValue={idCategoria}
                                 onChange={e => setIdCategoria(e.value)}
                             />*/}
-                            <select value={idCategoria} onChange={e => setIdCategoria(e.target.value)}>
-                                <option></option>
+                            <select id="categoria" value={idCategoria} name="Categoria" onChange={e => setIdCategoria(e.target.value)}>
+                                <option hidden selected>Categoria</option>
                                 {optionsCategoria.map(categoria => (
                                     <option value={categoria.value}>{categoria.label}</option>
                                 ))}
@@ -205,8 +203,8 @@ export default function Register() {
                                 defaultvalue={vigilancia}
                                 onChange={e => setVigilancia(e.value)}
                             />*/}
-                            <select value={vigilancia} onChange={e => setVigilancia(e.target.value)}>
-                                <option></option>
+                            <select id="vigilancia" value={vigilancia} onChange={e => setVigilancia(e.target.value)}>
+                                <option hidden selected>Vigilância</option>
                                 {optionsBoolean.map(escolha => (
                                     <option value={escolha.value}>{escolha.label}</option>
                                 ))}
@@ -221,8 +219,8 @@ export default function Register() {
                                 defaultValue={profissional}
                                 onChange={e => setProfissional(e.value)}
                             />*/}
-                            <select value={profissional} onChange={e => setProfissional(e.target.value)}>
-                                <option></option>
+                            <select id="profissional" value={profissional} onChange={e => setProfissional(e.target.value)}>
+                                <option hidden selected>Profissional</option>
                                 {optionsProfissional.map(funcionario => (
                                     <option value={funcionario.value}>{funcionario.label}</option>
                                 ))}
