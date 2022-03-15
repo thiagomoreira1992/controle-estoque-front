@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Helmet } from 'react-helmet';
 
 import './stylemonitoring.css';
@@ -21,8 +21,16 @@ export default function ListMovimentacao() {
         }).then(api.get('listarMaterial').then(response => {
             setMateriais(response.data);
         })).then(api.get('listarMovimentacao').then(response2 => {
-            setMovimentacoes(response2.data);
-        }))
+            //setMovimentacoes(response2.data);
+            setMovimentacoes(response2.data.filter(movimentacao => movimentacao.idMaterial !== materiais.id));
+            console.log(response2.data.filter(movimentacao => movimentacao.idMaterial !== materiais.id))
+
+        })).then(() => {
+            setMovimentacoes(movimentacoes.filter(movimentacao => movimentacao.idMaterial !== materiais.id));
+            console.log(movimentacoes.filter(movimentacao => movimentacao.idMaterial !== materiais.id))
+            console.log(materiais)
+        })
+
     }, []);
 
     function handleGetMaterial(int) {

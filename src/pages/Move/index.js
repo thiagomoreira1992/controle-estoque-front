@@ -13,7 +13,7 @@ export default function Move() {
     const [lote, setLote] = useState(null);
     const [quantidade, setQuantidade] = useState(null);
     const [profissional, setProfissional] = useState(null);
-    const [optionProfissional, setOptionProfissional] = useState(null);
+    const [optionProfissional, setOptionProfissional] = useState([]);
 
     const data = {
         lote,
@@ -113,7 +113,7 @@ export default function Move() {
                                 placeholder="Lote"
                                 value={lote}
                                 onChange={e => setLote(e.target.value)}
-                                onClick={() => resetaBorda('lote')}
+                                onKeyPress={() => resetaBorda('lote')}
                             />
                         </label>
                         <label>Quantidade:
@@ -122,13 +122,13 @@ export default function Move() {
                                 type='number'
                                 placeholder="Quantidade"
                                 value={quantidade}
-                                onChange={e => setQuantidade(e.target.value)}                                
-                                onClick={() => resetaBorda('quantidade')}
+                                onChange={e => setQuantidade(e.target.value)}
+                                onKeyPress={() => resetaBorda('quantidade')}
                             />
                         </label>
                         <label>
-                            Categoria:
-                            <Select
+                            Profissional:
+                            {/*<Select
                                 id="profissional"
                                 className="react-select"
                                 placeholder="Profissional"
@@ -137,7 +137,13 @@ export default function Move() {
                                 defaultValue={profissional}
                                 onChange={e => setProfissional(e.value)}                                
                                 onClick={() => resetaBorda('profissional')}
-                            />
+    />*/}
+                            <select id="profissional" value={profissional} onChange={e => setProfissional(e.target.value)} onClick={() => resetaBorda('profissional')}>
+                                <option hidden selected>Profissional</option>
+                                {optionProfissional.map(funcionario => (
+                                    <option value={funcionario.value}>{funcionario.label}</option>
+                                ))}
+                            </select>
                         </label>
                         <label className="formButton">
                             <button className="button" type="submit">Cadastrar</button>
