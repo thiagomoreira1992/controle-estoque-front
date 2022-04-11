@@ -5,6 +5,8 @@ import api from '../../services/api';
 import Select from 'react-select';
 import moment from 'moment';
 
+import Menu from '../../Components/Menu';
+
 import './styles.css';
 import { openNav, closeNav } from './scripts'
 
@@ -116,13 +118,7 @@ export default function Register() {
             <Helmet>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Helmet>
-            <div id="sidebar">
-                <Link to="" className="closebtn" onClick={closeNav}>X</Link>
-                <Link to="/move" onClick={closeNav}>Movimentar</Link>
-                <Link to="/register" onClick={closeNav}>Cadastrar</Link>
-                <Link to="/" onClick={closeNav}>Verificar Validade</Link>
-                <Link to="/reports" onClick={closeNav}>Relatórios</Link>
-            </div>
+            <Menu></Menu>
             <div id="main">
                 <section className="menu">
                     <button className="openbtn" id="menuSide" onClick={openNav}><p>☰</p></button>

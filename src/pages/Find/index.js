@@ -1,39 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import React, { Component, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { FiTrash2 } from 'react-icons/fi';
-//import api from '../../services/api';
+import api from '../../services/api';
+import Menu from '../../Components/Menu';
 
-import Menu from '../../../Components/Menu';
+import { FiTrash2, FiEdit } from 'react-icons/fi';
 
-import './style.css';
-import { openNav, closeNav, closeNavClick } from './scripts'
-
-import api from '../../../services/api';
+import './stylesFind.css';
+import { openNav, closeNav } from './scripts'
 
 
-export default function ListMedicamentos() {
+
+export default function Register() {
     let i;
     const [materiais, setMateriais] = useState([]);
     const [categoria, setCategoria] = useState([]);
     const [profissional, setProfissional] = useState([]);
+    const [coluna, setColuna] = useState(1);
+    const [busca, setBusca] = useState();
 
     useEffect(() => {
-        /*api.get('listarMaterial').then(response => {
-            setMateriais(response.data);
-        }).then(api.get('listarCategoria')
-        .then(response2 => {
-            setCategoria(response2.data);
-        }))*/
         api.get('listarCategoria').then(response2 => {
             setCategoria(response2.data);
         }).then(api.get('listarProfissional').then(response3 => {
             setProfissional(response3.data);
-        })).then(api.post('listarIdCategoria',{nome: 'Medicamentos'}).then(response => {
-            setMateriais(response.data);
-            console.log(response)
-        }))
+        })).then(setColuna(0));
     }, []);
+
+    /*useEffect(()=> {
+        api.get('listarBusca').then(response => {
+            setMateriais(response.data);
+    })}, [materiais]);*/
+
+    const navigate = useNavigate();
+
+    async function handleFind(e) {
+        e.preventDefault();
+
+        const data = {
+            busca
+        }
+        try {
+            const response = await api.post('listarBusca', data).then(response=> {
+                setMateriais(response.data);
+            });
+
+
+        } catch (err) {
+            alert(err);
+        }
+    }
 
     function handleGetCategoria(int) {
         for (i in categoria) {
@@ -61,40 +77,62 @@ export default function ListMedicamentos() {
 
     async function handleDeletMaterial(id) {
         try {
-            if (window.confirm(`Deletar ${handleGetMaterial(id)}`) == true) {
+            if (window.confirm(`Deletar ${handleGetMaterial(id)}`) === true) {
                 await api.post('removermaterial', {
                     id: `${id}`
                 });
 
                 alert(`Material ${handleGetMaterial(id)} deletado!`);
                 setMateriais(materiais.filter(material => material.id !== id));
-            }else{
+            } else {
                 alert('Exclusão cancelada');
-            }       
-            
+            }
+
         } catch (err) {
             alert(err);
         }
     }
 
+    async function handleModifier(id) {
+        localStorage.setItem('idMaterial', id);
+
+        navigate('/modifier');
+    }
+
+
 
     return (
-        <div id='main-container'>
+        <div id="main-container">
             <Helmet>
-                <meta name='viewport' content='width=device-width, initial-scale=1' />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Helmet>
             <Menu></Menu>
-            <div id='main'>
+            <div id="main">
                 <section className="menu">
                     <button className="openbtn" id="menuSide" onClick={openNav}><p>☰</p></button>
-                    <span>Controle de Materiais e Medicamentos</span>
+                    <spam>Controle de Materiais e Medicamentos</spam>
                 </section>
+                <div className="registro">
+                    <form className="content" onSubmit={handleFind}>
+                        <label>Nome:
+                            <input
+                                id="busca"
+                                placeholder="Busca"
+                                value={busca}
+                                onChange={e => setBusca(e.target.value)}
+                            />
+                        </label>
+                        <label className="formButton">
+                            <button className="button" type="submit">Buscar</button>
+                        </label>
+                    </form>
+                </div>
                 <div id="contentListAll">
                     <ul>
                         <li>
-                            <span>Categoria</span>
-                            <span>Nome</span>
-                            <span>Quantidade</span>
+                            <span className="ordenar" onClick={() => setColuna(1)}>Categoria</span>
+                            <span className="ordenar" onClick={() => setColuna(2)}>Nome</span>
+                            <span className="ordenar" onClick={() => setColuna(3)}>Quantidade</span>
                             <span>Validade</span>
                             <span>Apresentação</span>
                             <span>Lote</span>
@@ -114,15 +152,22 @@ export default function ListMedicamentos() {
                                     <span>{material.lote}</span>
                                     <span>{material.vigilancia === true ? "Sim" : "Não"}</span>
                                     <span>{handleGetProfissional(material.profissional)}</span>
-                                    <button onClick={() => handleDeletMaterial(material.id)}>
-                                        <FiTrash2 size={20} color="323232" />
-                                    </button>
+                                    <span>
+                                        <button onClick={() => handleModifier(material.id)}>
+                                            <FiEdit size={20} color="323232" />
+                                        </button>
+                                        <button onClick={() => handleDeletMaterial(material.id)}>
+                                            <FiTrash2 size={20} color="323232" />
+                                        </button>
+                                    </span>
                                 </li>
                             ))
                         }
                     </ul>
                 </div>
             </div>
+            <script src="./scripts.js"></script>
         </div>
     );
+
 }

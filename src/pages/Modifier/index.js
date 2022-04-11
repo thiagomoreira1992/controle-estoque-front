@@ -2,6 +2,8 @@ import React, { Component, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import api from '../../services/api';
+import Menu from '../../Components/Menu';
+
 
 import './styles.css';
 import { openNav, closeNav } from './scripts'
@@ -157,13 +159,7 @@ export default function Modifier() {
             <Helmet>
                 <meta name='viewport' content='width=device-width, initial-scale=1' />
             </Helmet>
-            <div id='sidebar'>
-                <Link to="" className="closebtn" onClick={closeNav}>X</Link>
-                <Link to="/move" onClick={closeNav}>Movimentar</Link>
-                <Link to="/register" onClick={closeNav}>Cadastrar</Link>
-                <Link to="/" onClick={closeNav}>Verificar Validade</Link>
-                <Link to="/reports" onClick={closeNav}>Relatórios</Link>
-            </div>
+            <Menu></Menu>
             <div id='main'>
                 <section className="menu">
                     <button className="openbtn" id="menuSide" onClick={openNav}><p>☰</p></button>

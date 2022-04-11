@@ -5,10 +5,11 @@ import { FiTrash2, FiEdit } from 'react-icons/fi';
 
 import Menu from '../../../Components/Menu';
 
-import './styleAll.css';
+import './styleAllPrint.css';
 import { openNav, closeNav } from './scripts'
 
 import api from '../../../services/api';
+import moment from 'moment';
 
 
 export default function ListAll() {
@@ -90,7 +91,7 @@ export default function ListAll() {
                     setColuna(0);
                     break;
             }
-
+            
         }
         ordenar(coluna);
     }, [coluna])
@@ -143,68 +144,12 @@ export default function ListAll() {
         navigate('/modifier');
     }
 
-    /*function ordenar(coluna) {
-        let ordenedMateriais;
-        switch (coluna) {
-            case 1:
-                ordenedMateriais = materiais.sort((a, b) => {
-                    if (a.categoria < b.categoria)
-                        return -1;
-                    if (a.categoria > b.categoria)
-                        return 1;
-                    return 0;
-                });
-                setMateriais(ordenedMateriais);
-                break;
-            case 2:
-                ordenedMateriais = materiais.sort((a, b) => {
-                    if (a.nome < b.nome)
-                        return -1;
-                    if (a.nome > b.nome)
-                        return 1;
-                    return 0;
-                });
-                setMateriais(ordenedMateriais);
-                break;
-            case 3:
-                ordenedMateriais = materiais.sort((a, b) => {
-                    if (a.quantidade < b.quantidade)
-                        return -1;
-                    if (a.quantidade > b.quantidade)
-                        return 1;
-                    return 0;
-                });
-                setMateriais(ordenedMateriais);
-                break;
-            case 4:
-                ordenedMateriais = materiais.sort((a, b) => {
-                    if (a.validade < b.validade)
-                        return -1;
-                    if (a.validade > b.validade)
-                        return 1;
-                    return 0;
-                });
-                setMateriais(ordenedMateriais);
-                break;
-            default:
-                ordenedMateriais = materiais.sort((a, b) => {
-                    if (a.id < b.id)
-                        return -1;
-                    if (a.id > b.id)
-                        return 1;
-                    return 0;
-                });
-                setMateriais(ordenedMateriais);
-                break;
-        }
-    }*/
-
-
-
-
-
-    return (
+    return (        
         <div id='main-container'>
+            {window.onafterprint = () =>{
+                document.getElementById("printButton").style.visibility = "visible";
+                document.getElementById("diaHora").style.visibility = "hidden";
+            }}
             <Helmet>
                 <meta name='viewport' content='width=device-width, initial-scale=1' />
             </Helmet>
@@ -214,10 +159,17 @@ export default function ListAll() {
                     <button className="openbtn" id="menuSide" onClick={openNav}><p>☰</p></button>
                     <span>Controle de Materiais e Medicamentos</span>
                 </section>
-                <section class="impressao">
-                <Link to="/reports/listallprint" >Impressão de Relatório</Link>
+                <section class="printButton">
+                    <p id="diaHora">{moment().format('MMMM Do YYYY, hh:mm:ss')}</p>
+                    <button id="printButton" onClick={() => {
+                        document.getElementById("printButton").style.visibility = "hidden";
+                        document.getElementById("diaHora").style.visibility = "visible";
+                        window.print();
+
+                        }}>Imprimir</button>
+                        
                 </section>
-                <div id="contentListAll">
+                <div id="contentListAllPrint">
                     <ul>
                         <li>
                             <span className="ordenar" onClick={() => setColuna(1)}>Categoria</span>
@@ -226,8 +178,6 @@ export default function ListAll() {
                             <span>Validade</span>
                             <span>Apresentação</span>
                             <span>Lote</span>
-                            <span>Vigilância</span>
-                            <span>Profissional</span>
                         </li>
                     </ul>
                     <ul className="result">
@@ -240,16 +190,6 @@ export default function ListAll() {
                                     <span>{new Intl.DateTimeFormat().format(new Date(material.validade))}</span>
                                     <span>{material.apresentacao}</span>
                                     <span>{material.lote}</span>
-                                    <span>{material.vigilancia === true ? "Sim" : "Não"}</span>
-                                    <span>{handleGetProfissional(material.profissional)}</span>
-                                    <span>
-                                        <button onClick={() => handleModifier(material.id)}>
-                                            <FiEdit size={20} color="323232" />
-                                        </button>
-                                        <button onClick={() => handleDeletMaterial(material.id)}>
-                                            <FiTrash2 size={20} color="323232" />
-                                        </button>
-                                    </span>
                                 </li>
                             ))
                         }

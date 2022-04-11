@@ -85,39 +85,25 @@ body {
     border: 1px solid #000;
 }
 
-.impressao{
+#diaHora{
+    visibility: hidden;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.printButton{
     display: flex;
     justify-content: flex-end;
 
     padding: 20px 20px 0;
-
 }
-
-.impressao a{
-    text-decoration: none;
-    color: inherit;
-
-    font-weight: 700;
-    font-size: 16px;
-    transition: filter 0.3s;
-}
-
-.impressao a:hover{
-    text-decoration: none;
-    color: inherit;
-
-    font-weight: 700;
-    font-size: 16px;
-    filter: opacity(20%);
-}
-
-#contentListAll{
+#contentListAllPrint{
     width: 100%;
 
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
-#contentListAll ul {
+#contentListAllPrint ul {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
@@ -129,7 +115,7 @@ body {
     
 }
 
-#contentListAll ul li {
+#contentListAllPrint ul li {
     width: 100%;
     border-bottom: 1px solid #000;
     /*display:flex;
@@ -138,18 +124,18 @@ body {
     justify-content: space-between !important; 
     /*align-content: space-between;*/
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr !important;
+    grid-template-columns: 0.75fr 1.5fr 0.5fr 1fr 1fr 1fr !important;
     grid-gap: auto;
     align-items: center;
     justify-items: center !important;
 }
 
-#contentListAll .ordenar{
+#contentListAllPrint .ordenar{
     
     cursor: pointer;
 }
 
-#contentListAll ul li span{
+#contentListAllPrint ul li span{
     /*display: flex;
     flex-direction: row;
     justify-content: space-between;*/
@@ -161,7 +147,7 @@ body {
     text-align: center;
 }
 
-#contentListAll .result li span{
+#contentListAllPrint .result li span{
     padding:5px;
     font: 500 12px Roboto, sans-serif;
     /*border: 1px solid #000;*/
@@ -171,7 +157,7 @@ body {
     justify-content: space-between;
 }
 
-#contentListAll .result li button{
+#contentListAllPrint .result li button{
     display: flex;
     justify-content: center;
     align-content: center;

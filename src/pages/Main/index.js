@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { Helmet } from 'react-helmet';
 import { ImArrowRight2 } from "react-icons/im";
+import Menu from '../../Components/Menu';
 
 import './styleMain.css';
-import { openNav, closeNav} from './scripts'
+import { openNav, closeNav } from './scripts'
 
 import api from '../../services/api';
 
@@ -79,13 +80,7 @@ export default function CheckValidity() {
             <Helmet>
                 <meta name='viewport' content='width=device-width, initial-scale=1' />
             </Helmet>
-            <div id='sidebar'>
-                <Link to="" className="closebtn" onClick={closeNav}>X</Link>
-                <Link to="/move" onClick={closeNav}>Movimentar</Link>
-                <Link to="/register" onClick={closeNav}>Cadastrar</Link>
-                <Link to="/" onClick={closeNav}>Verificar Validade</Link>
-                <Link to="/reports" onClick={closeNav}>Relatórios</Link>
-            </div>
+            <Menu></Menu>
             <div id='main'>
                 <section className="menu">
                     <button className="openbtn" id="menuSide" onClick={openNav}><p>☰</p></button>
@@ -125,8 +120,6 @@ export default function CheckValidity() {
                     </ul>
 
                 </div>
-
-                <ImArrowRight2 size={250} color="2f436c"/>
             </div>
         </div>
     );
