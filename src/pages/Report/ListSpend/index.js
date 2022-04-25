@@ -94,6 +94,7 @@ export default function ListSpending() {
 
                 </section>
                 <div id="contentListSpending">
+                    <h1>Gastos do Mês</h1>
                     <ul>
                         <li className="titulo">
                             <span className="ordenar" onClick={() => setColuna(2)}>Nome</span>
@@ -105,7 +106,7 @@ export default function ListSpending() {
                                 return (
                                     <li className="result" key={material[i]}>
                                         <span>{material.nome}</span>
-                                        <span>{material.quantidade}</span>
+                                        <span>{material.quantidade*-1}</span>
                                     </li>
                                 );
                                 

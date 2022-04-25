@@ -32,33 +32,39 @@ export default class Main extends Component {
                                 </Link>
                             </li>
                             <li>
-                            <Link to="/reports/listmateriais">
+                                <Link to="/reports/listmateriais">
                                     <FiFileText size="72" color="#323232" />
                                     <span>Listar Materiais</span>
                                 </Link>
                             </li>
                             <li>
-                            <Link to="/reports/listmedicamentos">
+                                <Link to="/reports/listmedicamentos">
                                     <FiFileText size="72" color="#323232" />
                                     <span>Listar Medicamentos</span>
                                 </Link>
                             </li>
                             <li>
-                            <Link to="/reports/listpapelaria">
+                                <Link to="/reports/listpapelaria">
                                     <FiFileText size="72" color="#323232" />
                                     <span>Listar Papelaria</span>
                                 </Link>
                             </li>
                             <li>
-                            <Link to="/reports/listmovimentacoes">
+                                <Link to="/reports/listmovimentacoes">
                                     <FiFileText size="72" color="#323232" />
                                     <span>Listar Movimentações</span>
                                 </Link>
                             </li>
                             <li>
-                            <Link to="/reports/listorder">
+                                <Link to="/reports/listorder">
                                     <FiFileText size="72" color="#323232" />
                                     <span>Lista Pedido Mês</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/reports/listofspendings">
+                                    <FiFileText size="72" color="#323232" />
+                                    <span>Lista Gastos do Mês</span>
                                 </Link>
                             </li>
                         </ul>

@@ -136,6 +136,10 @@ body {
     cursor: pointer;
 }
 
+#contentListSpending h1{
+    text-align: center;
+}
+
 .titulo span {
     /*display: flex;
     flex-direction: row;
