@@ -13,6 +13,8 @@ import ListMovimentacao from './pages/Report/ListMonitoring'
 import Modifier from './pages/Modifier';
 import Find from './pages/Find';
 import ListAllPrint from './pages/Report/ListAllPrint'
+import ListOrder from './pages/Report/ListOrder';
+import ListSpending from './pages/Report/ListSpend'
 
 const Router = () => (
     <BrowserRouter>
@@ -27,6 +29,8 @@ const Router = () => (
             <Route path="/reports/listmedicamentos" element={<ListMedicamentos/>}/>
             <Route path="/reports/listpapelaria" element={<ListPapelaria/>}/>
             <Route path="/reports/listmovimentacoes" element={<ListMovimentacao/>}/>
+            <Route path="/reports/listorder" element={<ListOrder/>}/>
+            <Route path="/reports/listofspendings" element={<ListSpending/>}/>
             <Route path="/modifier" element={<Modifier/>}/>
             <Route path="/find" element={<Find/>}/>
         </Routes>

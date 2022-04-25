@@ -77,6 +77,7 @@ export default function Move() {
                 console.log(response);
 
                 if (response.data.status === 200 ? alert(response.data.body) : alert(response.data.body));
+                window.location.reload();
 
 
             } catch (err) {

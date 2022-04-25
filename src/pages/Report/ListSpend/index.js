@@ -5,47 +5,29 @@ import { FiTrash2, FiEdit } from 'react-icons/fi';
 
 import Menu from '../../../Components/Menu';
 
-import './styleAllPrint.css';
+import './styleSpending.css';
 import { openNav, closeNav } from './scripts'
 
 import api from '../../../services/api';
 import moment from 'moment';
 
 
-export default function ListAll() {
+export default function ListSpending() {
     let i;
     const [materiais, setMateriais] = useState([]);
-    const [categoria, setCategoria] = useState([]);
-    const [profissional, setProfissional] = useState([]);
     const [coluna, setColuna] = useState(1);
 
-    const navigate = useNavigate();
-
     useEffect(() => {
-        api.get('listarCategoria').then(response2 => {
-            setCategoria(response2.data);
-        }).then(api.get('listarProfissional').then(response3 => {
-            setProfissional(response3.data);
-        })).then(api.get('listarMaterial').then(response => {
+        api.get('gastosdomes').then(response => {
             setMateriais(response.data);
-        })).then(setColuna(0));
+            console.log(response.data);
+        }).then(setColuna(0));
     }, []);
 
     useEffect(() => {
         const ordenar = (coluna) => {
             let ordenedMateriais;
             switch (coluna) {
-                case 1:
-                    ordenedMateriais = materiais.sort((a, b) => {
-                        if (a.categoria < b.categoria)
-                            return -1;
-                        if (a.categoria > b.categoria)
-                            return 1;
-                        return 0;
-                    });
-                    setMateriais(ordenedMateriais);
-                    setColuna(0);
-                    break;
                 case 2:
                     ordenedMateriais = materiais.sort((a, b) => {
                         if (a.nome < b.nome)
@@ -54,59 +36,41 @@ export default function ListAll() {
                             return 1;
                         return 0;
                     });
+                    setMateriais([]);
                     setMateriais(ordenedMateriais);
                     setColuna(0);
                     break;
                 case 3:
                     ordenedMateriais = materiais.sort((a, b) => {
-                        if (a.quantidade < b.quantidade)
-                            return -1;
-                        if (a.quantidade > b.quantidade)
-                            return 1;
-                        return 0;
+                        return a.quantidade - b.quantidade;
                     });
-                    setMateriais(ordenedMateriais);
-                    setColuna(0);
-                    break;
-                case 4:
-                    ordenedMateriais = materiais.sort((a, b) => {
-                        if (a.validade < b.validade)
-                            return -1;
-                        if (a.validade > b.validade)
-                            return 1;
-                        return 0;
-                    });
+                    setMateriais([]);
                     setMateriais(ordenedMateriais);
                     setColuna(0);
                     break;
                 default:
                     ordenedMateriais = materiais.sort((a, b) => {
-                        if (a.id < b.id)
+                        if (a < b)
                             return -1;
-                        if (a.id > b.id)
+                        if (a > b)
                             return 1;
                         return 0;
                     });
+                    setMateriais([]);
                     setMateriais(ordenedMateriais);
                     setColuna(0);
                     break;
             }
-            
+
         }
         ordenar(coluna);
+        console.log(materiais[0]);
     }, [coluna])
 
-    function handleGetCategoria(int) {
-        for (i in categoria) {
-            if (categoria[i].id === int) {
-                return categoria[i].nome;
-            }
-        }
-    }
 
-    return (        
+    return (
         <div id='main-container'>
-            {window.onafterprint = () =>{
+            {window.onafterprint = () => {
                 document.getElementById("printButton").style.visibility = "visible";
                 document.getElementById("diaHora").style.visibility = "hidden";
             }}
@@ -119,37 +83,33 @@ export default function ListAll() {
                     <button className="openbtn" id="menuSide" onClick={openNav}><p>☰</p></button>
                     <span>Controle de Materiais e Medicamentos</span>
                 </section>
-                <section class="printButton">
+                <section className="printButton">
                     <p id="diaHora">{moment().format('MMMM Do YYYY, hh:mm:ss')}</p>
                     <button id="printButton" onClick={() => {
                         document.getElementById("printButton").style.visibility = "hidden";
                         document.getElementById("diaHora").style.visibility = "visible";
                         window.print();
 
-                        }}>Imprimir</button>
-                        
+                    }}>Imprimir</button>
+
                 </section>
-                <div id="contentListAllPrint">
+                <div id="contentListSpending">
                     <ul>
                         <li className="titulo">
-                            <span className="ordenar" onClick={() => setColuna(1)}>Categoria</span>
                             <span className="ordenar" onClick={() => setColuna(2)}>Nome</span>
                             <span className="ordenar" onClick={() => setColuna(3)}>Quantidade</span>
-                            <span>Validade</span>
-                            <span>Apresentação</span>
-                            <span>Lote</span>
                         </li>
                         {
-                            materiais.map(material => (
-                                <li className="result" key={material.id}>
-                                    <span>{handleGetCategoria(material.idCategoria)}</span>
-                                    <span>{material.nome}</span>
-                                    <span>{material.quantidade}</span>
-                                    <span>{new Intl.DateTimeFormat().format(new Date(material.validade))}</span>
-                                    <span>{material.apresentacao}</span>
-                                    <span>{material.lote}</span>
-                                </li>
-                            ))
+                            materiais.map(material => {
+                                i++;
+                                return (
+                                    <li className="result" key={material[i]}>
+                                        <span>{material.nome}</span>
+                                        <span>{material.quantidade}</span>
+                                    </li>
+                                );
+                                
+                            })
                         }
                     </ul>
                 </div>

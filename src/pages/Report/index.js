@@ -55,6 +55,12 @@ export default class Main extends Component {
                                     <span>Listar Movimentações</span>
                                 </Link>
                             </li>
+                            <li>
+                            <Link to="/reports/listorder">
+                                    <FiFileText size="72" color="#323232" />
+                                    <span>Lista Pedido Mês</span>
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
